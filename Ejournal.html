@@ -4,7 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Industry Tour E-Journal | College of Computer Studies</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #0022FF;
+            --secondary: #f8aa00;
+            --accent: #FFC107;
+            --dark: #000000;
+            --light: #ffffff;
+            --gray-light: #f9f9f9;
+            --gray: #f0f0f0;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -13,28 +26,49 @@
         }
         
         body {
-            background-color: #ffffff;
-            color: #000000;
+            background-color: var(--gray);
+            color: var(--dark);
             line-height: 1.6;
         }
         
         header {
-            background-color: #f8aa00;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
             color: white;
             text-align: center;
-            padding: 2rem 0;
+            padding: 3rem 0;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0.05),
+                rgba(255, 255, 255, 0.05) 10px,
+                rgba(255, 255, 255, 0) 10px,
+                rgba(255, 255, 255, 0) 20px
+            );
         }
         
         .title-highlight {
-            color: #faf9f5;
+            color: var(--light);
+            font-weight: 700;
         }
         
         nav {
-            background-color: #000000;
-            padding: 1rem 0;
+            background-color: var(--dark);
+            padding: 0;
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: var(--shadow);
         }
         
         nav ul {
@@ -42,20 +76,38 @@
             justify-content: center;
             list-style: none;
             flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
         nav a {
-            color: white;
+            color: var(--light);
             text-decoration: none;
-            padding: 0.5rem 1rem;
-            margin: 0 0.5rem;
-            border-radius: 4px;
-            transition: background-color 0.3s;
+            padding: 1rem 1.2rem;
+            display: block;
+            transition: var(--transition);
+            font-weight: 500;
+            position: relative;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background-color: var(--accent);
+            transition: var(--transition);
+            transform: translateX(-50%);
         }
         
         nav a:hover {
-            background-color: #FFC107;
-            color: #000000;
+            color: var(--accent);
+        }
+        
+        nav a:hover::after {
+            width: 70%;
         }
         
         .container {
@@ -65,114 +117,307 @@
         }
         
         section {
-            background-color: white;
-            margin: 2rem 0;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            background-color: var(--light);
+            margin: 2.5rem 0;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+        }
+        
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
         
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 1rem;
+            letter-spacing: 1px;
         }
         
         h2 {
-            font-size: 2rem;
-            color: #0022FF;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #FFC107;
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
         }
         
         h3 {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             margin: 1.5rem 0 1rem;
-            color: #000000;
+            color: var(--dark);
+            position: relative;
+            padding-left: 0.8rem;
+        }
+        
+        h3::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background-color: var(--accent);
         }
         
         p {
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+        }
+        
+        ul {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+        
+        ul li {
+            margin-bottom: 0.5rem;
         }
         
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            height: 220px;
         }
         
         .gallery img {
             width: 100%;
-            height: 200px;
+            height: 100%;
             object-fit: cover;
-            border-radius: 4px;
-            transition: transform 0.3s;
-            border: 2px solid #FFC107;
+            transition: transform 0.5s;
+            border-radius: 8px;
         }
         
-        .gallery img:hover {
-            transform: scale(1.05);
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+        
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover::after {
+            opacity: 1;
         }
         
         .reflection-card {
-            background-color: #f9f9f9;
-            border-left: 4px solid #0022FF;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border-radius: 4px;
+            background-color: var(--gray-light);
+            border-left: 4px solid var(--primary);
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        .reflection-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
         
         .speaker-profile {
             display: flex;
             align-items: center;
-            margin-bottom: 1.5rem;
-            background-color: #f9f9f9;
-            padding: 1rem;
-            border-radius: 8px;
-            border-left: 4px solid #FFC107;
+            margin-bottom: 2rem;
+            background-color: var(--gray-light);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .speaker-profile::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+        
+        .speaker-profile:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
         
         .speaker-profile img {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            margin-right: 1.5rem;
-            border: 2px solid #0022FF;
+            margin-right: 2rem;
+            border: 3px solid var(--light);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .speaker-content h3 {
+            padding-left: 0;
+            margin-top: 0;
+        }
+        
+        .speaker-content h3::before {
+            display: none;
         }
         
         footer {
-            background-color: #0022FF;
-            color: white;
+            background: linear-gradient(135deg, var(--primary) 0%, #001aa7 100%);
+            color: var(--light);
             text-align: center;
-            padding: 2rem 0;
+            padding: 3rem 0;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                -45deg,
+                rgba(255, 255, 255, 0.05),
+                rgba(255, 255, 255, 0.05) 10px,
+                rgba(255, 255, 255, 0) 10px,
+                rgba(255, 255, 255, 0) 20px
+            );
+        }
+        
+        .footer-content {
+            position: relative;
+            z-index: 1;
         }
         
         .btn {
             display: inline-block;
-            background-color: #FFC107;
-            color: #000000;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
-            transition: all 0.3s;
+            transition: var(--transition);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
         
         .btn:hover {
-            background-color: #0022FF;
-            color: white;
+            background-color: var(--primary);
+            color: var(--light);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        iframe {
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            margin: 1.5rem 0;
+            border: none;
+        }
+        
+        .highlight {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .accent {
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        .section-icon {
+            margin-right: 0.5rem;
+            color: var(--accent);
+        }
+        
+        .social-links {
+            margin-top: 1.5rem;
+        }
+        
+        .social-links a {
+            color: var(--light);
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        @media (max-width: 992px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            section {
+                padding: 2rem;
+            }
+            
+            h1 {
+                font-size: 2.4rem;
+            }
+            
+            h2 {
+                font-size: 1.9rem;
+            }
         }
         
         @media (max-width: 768px) {
             nav ul {
                 flex-direction: column;
                 align-items: center;
+                padding: 0.5rem 0;
             }
             
             nav a {
-                margin: 0.25rem 0;
+                padding: 0.7rem 1rem;
+                margin: 0;
+                text-align: center;
+                width: 100%;
+            }
+            
+            nav a::after {
+                display: none;
+            }
+            
+            nav a:hover {
+                background-color: rgba(255, 255, 255, 0.1);
             }
             
             .speaker-profile {
@@ -181,36 +426,48 @@
             }
             
             .speaker-profile img {
-                margin-right: 0;
-                margin-bottom: 1rem;
+                margin: 0 0 1.5rem 0;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.7rem;
+            }
+            
+            section {
+                padding: 1.5rem;
+                margin: 1.5rem 0;
             }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1><span style="color: #0022FF; background-color: white; padding: 0 10px;">ELEC014</span> <span class="title-highlight">Industry</span> <span style="color: #000000;">Tour</span></h1>
+        <h1><span style="color: var(--primary); background-color: white; padding: 0 15px; border-radius: 8px;">ELEC014</span> <span class="title-highlight">Industry</span> <span style="color: var(--dark);">Tour</span></h1>
         <h3>College of Computer Studies</h3>
     </header>
     
     <nav>
         <ul>
-            <li><a href="#homepage">Homepage</a></li>
-            <li><a href="#organizers">Organizers</a></li>
-            <li><a href="#itinerary">Itinerary</a></li>
-            <li><a href="#companies">Companies</a></li>
-            <li><a href="#reflections">Student Reflections</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#speakers">Expert Speakers</a></li>
-            <li><a href="#conclusion">Conclusion</a></li>
+            <li><a href="#homepage"><i class="fas fa-home"></i> Homepage</a></li>
+            <li><a href="#organizers"><i class="fas fa-users"></i> Organizers</a></li>
+            <li><a href="#itinerary"><i class="fas fa-calendar-alt"></i> Itinerary</a></li>
+            <li><a href="#companies"><i class="fas fa-building"></i> Companies</a></li>
+            <li><a href="#reflections"><i class="fas fa-comment-alt"></i> Reflections</a></li>
+            <li><a href="#gallery"><i class="fas fa-images"></i> Gallery</a></li>
+            <li><a href="#speakers"><i class="fas fa-microphone-alt"></i> Speakers</a></li>
+            <li><a href="#conclusion"><i class="fas fa-flag-checkered"></i> Conclusion</a></li>
         </ul>
     </nav>
     
     <div class="container">
         <section id="homepage">
-            <h2>📌 Homepage / Introduction</h2>
-            <p>Welcome to the official e-journal of the <span style="color: #0022FF; font-weight: bold;">ELEC014</span> 
-                <span style="color: #FFC107; font-weight: bold;">Educational / Industry Tour</span>, conducted from January to April. This immersive industry experience took students across key in different technology hubs in the Philippines, providing invaluable insights into the professional world of computing and technology.</p>
+            <h2><i class="fas fa-home section-icon"></i>Homepage / Introduction</h2>
+            <p>Welcome to the official e-journal of the <span class="highlight">ELEC014</span> 
+                <span class="accent">Educational / Industry Tour</span>, conducted from January to April. This immersive industry experience took students across key in different technology hubs in the Philippines, providing invaluable insights into the professional world of computing and technology.</p>
             
             <h3>Tour Objectives</h3>
             <ul>
@@ -225,14 +482,14 @@
         </section>
         
         <section id="organizers">
-            <h2>👥 About the Organizers</h2>
+            <h2><i class="fas fa-users section-icon"></i>About the Organizers</h2>
             <h3>Faculty Coordinators</h3>
             <ul>
                 <li><strong>Prof. Manero, Cris John David</strong> - Student Officers Moderator, CCS Internationalization Coordinator</li>
             </ul>
             
             <h3>Travel Partner</h3>
-            <p>This educational tour was organized in partnership with <strong style="color: #FFC107;">University of the Immaculate Conception</strong>, who provided excellent logistical support, transportation, and accommodation arrangements throughout the journey.</p>
+            <p>This educational tour was organized in partnership with <strong class="accent">University of the Immaculate Conception</strong>, who provided excellent logistical support, transportation, and accommodation arrangements throughout the journey.</p>
             
             <h3>Sponsors and Partners</h3>
             <p>We extend our sincere gratitude to the following organizations for their support:</p>
@@ -243,116 +500,130 @@
         </section>
         
         <section id="itinerary">
-            <h2>📅 Itinerary & Tour Schedule</h2>
+            <h2><i class="fas fa-calendar-alt section-icon"></i>Itinerary & Tour Schedule</h2>
             <h3>Day 1: February 20, 2025</h3>
             <ul>
-                <li><strong style="color: #0022FF;">7:00 AM - 7:30 AM:</strong> Departure from Campus</li>
-                <li><strong style="color: #0022FF;">7:30 AM - 8:30 PM:</strong> Going to PTV Davao Media Hub</li>
-                <li><strong style="color: #0022FF;">8:30 PM - 12:00 PM:</strong> Tour of PTV Davao Media Hub</li
+                <li><strong class="highlight">7:00 AM - 7:30 AM:</strong> Departure from Campus</li>
+                <li><strong class="highlight">7:30 AM - 8:30 PM:</strong> Going to PTV Davao Media Hub</li>
+                <li><strong class="highlight">8:30 PM - 12:00 PM:</strong> Tour of PTV Davao Media Hub</li>
             </ul>
             
             <h3>Tour Locations</h3>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.4430265736348!2d125.59294817476843!3d7.076998716674172!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32f96d9f519e327f%3A0xb53a24586e8a489d!2sDavao%20City%2C%20Davao%20del%20Sur!5e0!3m2!1sen!2sph!4v1686565421979!5m2!1sen!2sph" width="100%" height="450" style="border: 3px solid #FFC107;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.4430265736348!2d125.59294817476843!3d7.076998716674172!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32f96d9f519e327f%3A0xb53a24586e8a489d!2sDavao%20City%2C%20Davao%20del%20Sur!5e0!3m2!1sen!2sph!4v1686565421979!5m2!1sen!2sph" width="100%" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </section>
 
         <section id="Seminars">
-        <h2>📅 Seminars</h2>
+            <h2><i class="fas fa-chalkboard-teacher section-icon"></i>Seminars</h2>
             <h3>January 10, 2025</h3>
             <ul>
-                <li><strong style="color: #0022FF;">9:00 AM - 12:00 NOON:</strong> Session 1: </li>
+                <li><strong class="highlight">9:00 AM - 12:00 NOON:</strong> Session 1: </li>
             </ul>
             <h3>January 18, 2025</h3>
             <ul>
-                <li><strong style="color: #0022FF;">1:00 PM - 5:00 PM:</strong> Session 2: </li>
+                <li><strong class="highlight">1:00 PM - 5:00 PM:</strong> Session 2: </li>
             </ul>
             <h3>April 22, 2025</h3>
             <ul>
-                <li><strong style="color: #0022FF;">8:00 AM - 5:00 PM:</strong> Session 3:  Research journey and expert insights on global innovation and scientific advancement. </li>
+                <li><strong class="highlight">8:00 AM - 5:00 PM:</strong> Session 3:  Research journey and expert insights on global innovation and scientific advancement. </li>
             </ul>
         </section>
         
         <section id="companies">
-            <h2>🏭 Company & Industry Profiles</h2>
+            <h2><i class="fas fa-building section-icon"></i>Company & Industry Profiles</h2>
             
             <h3>PTV Davao Media Hub - People's Television Network (PTV) </h3>
             <p>The PTV Media Hub, specifically the Mindanao Media Hub, is a facility utilized by the People's Television Network (PTV), a government-owned media organization in the Philippines. It serves as a broadcasting hub for PTV and potentially other attached organizations of the Presidential Communications Office in the Mindanao region. DXNP-TV, channel 11, is a television station in Metro Davao and acts as the Mindanao flagship for PTV.</p>
-            <p><strong style="color: #FFC107;">Key Technologies Observed:</strong></p>
+            <p><strong class="accent">Key Technologies Observed:</strong></p>
             <ul>
                 <li>Broadcast Automation Systems</li>
                 <li>IP-Based Broadcasting Infrastructure</li>
                 <li>Satellite and Terrestrial Signal Transmission</li>
                 <li>Cloud-Based Newsroom Systems</li>
-
             </ul>
             
             <h3>UIC Research Symposium</h3>
             <p>The 𝗖𝗖𝗦 𝗥𝗲𝘀𝗲𝗮𝗿𝗰𝗵 𝗦𝘆𝗺𝗽𝗼𝘀𝗶𝘂𝗺 𝟮𝟬𝟮𝟱 is bursting with innovation as our brilliant student researchers take the spotlight with three groundbreaking studies!</p>
-            <p><strong style="color: #FFC107;">Key Technologies Observed:</strong></p>
+            <p><strong class="accent">Key Technologies Observed:</strong></p>
             <ul>
                 <li>Showcase creativity</li>
                 <li>Critical thinking</li>
                 <li>Cutting-edge Tech Solution</li>
             </ul>
-    
+        </section>
         
         <section id="reflections">
-            <h2>📖 Student Reflections & Learnings</h2>
+            <h2><i class="fas fa-comment-alt section-icon"></i>Student Reflections & Learnings</h2>
             
             <div class="reflection-card">
                 <h3>PTV Davao Media Hub - People's Television Network (PTV)</h3>
-                <p><em>"The PTV Davao Media Hub stands as a symbol of the government's commitment to modernizing public broadcasting in the Philippines. As a regional extension of the People’s Television Network, this hub not only brings news and information closer to the people of Mindanao but also empowers local voices and perspectives to be heard on a national scale. Equipped with advanced broadcasting technologies and digital infrastructure, the facility represents a shift toward a more inclusive, decentralized media landscape. It plays a vital role in promoting transparency, development, and cultural diversity through public service broadcasting."</em></p>
+                <p><em>"The PTV Davao Media Hub stands as a symbol of the government's commitment to modernizing public broadcasting in the Philippines. As a regional extension of the People's Television Network, this hub not only brings news and information closer to the people of Mindanao but also empowers local voices and perspectives to be heard on a national scale. Equipped with advanced broadcasting technologies and digital infrastructure, the facility represents a shift toward a more inclusive, decentralized media landscape. It plays a vital role in promoting transparency, development, and cultural diversity through public service broadcasting."</em></p>
                 <p><strong>- Lemuel Bayson, 3rd Year</strong></p>
             </div>
             
             <div class="reflection-card">
                 <h3>Software Development Practices</h3>
-                <p><em>"The UIC Research Symposium 2025 is a celebration of innovation and academic excellence! Our outstanding student researchers from CCS are taking center stage with three groundbreaking studies that push boundaries, spark conversation, and showcase the future of technology and research.                    "</em></p>
+                <p><em>"The UIC Research Symposium 2025 is a celebration of innovation and academic excellence! Our outstanding student researchers from CCS are taking center stage with three groundbreaking studies that push boundaries, spark conversation, and showcase the future of technology and research."</em></p>
                 <p><strong>- Lemuel Bayson, 3rd Year</strong></p>
             </div>
         </section>
         
         <section id="gallery">
-            <h2>📸 Multimedia Gallery</h2>
-            <p>Below are some highlights from our industry tour. For the complete collection of photos and videos, visit our <a href="https://drive.google.com/drive/folders/19k5On-hH89o4pI_DwHLuyg7HRRRTl5R8?usp=sharing" target="_blank" style="color: #0022FF;">Google Drive folder</a>.</p>
+            <h2><i class="fas fa-images section-icon"></i>Multimedia Gallery</h2>
+            <p>Below are some highlights from our industry tour. For the complete collection of photos and videos, visit our <a href="https://drive.google.com/drive/folders/19k5On-hH89o4pI_DwHLuyg7HRRRTl5R8?usp=sharing" target="_blank" style="color: var(--primary);">Google Drive folder</a>.</p>
             
             <div class="gallery">
-                <img src="images/5a662845-0ecf-414f-a706-a84d0a5eb202.jpeg" alt="Visit to Company 1">
-                <img src="images/bc410fd0-f8b7-4d13-8bfd-67b371b7c2a2.jpeg" alt="Data Center Tour">
-                <img src="images/81d4e5b8-5078-46aa-98b5-8c6b1cfbe330.jpeg" alt="AI Lab Demonstration">
-                <img src="images/faaa589c-9da3-416e-b23e-36ccc4dcc990.jpeg" alt="Interactive Workshop">
-                <img src="images/b2f44b79-0440-4a6b-a8ad-458b42f00dda.jpeg" alt="Game Development Studio">
-                <img src="images/345183ef-c54a-4712-88b6-1181770c7651.jpeg" alt="Group Photo with Industry Professionals">
-                <img src="images/6d7364b2-6514-4428-8965-a4fed63bcea3.jpeg" alt="Industry Panel Discussion">
-                <img src="images/739db707-1e21-45bc-b290-b977577ad5f5.jpeg" alt="Networking Dinner">
+                <div class="gallery-item">
+                    <img src="images/5a662845-0ecf-414f-a706-a84d0a5eb202.jpeg" alt="Visit to Company 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/bc410fd0-f8b7-4d13-8bfd-67b371b7c2a2.jpeg" alt="Data Center Tour">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/81d4e5b8-5078-46aa-98b5-8c6b1cfbe330.jpeg" alt="AI Lab Demonstration">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/faaa589c-9da3-416e-b23e-36ccc4dcc990.jpeg" alt="Interactive Workshop">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/b2f44b79-0440-4a6b-a8ad-458b42f00dda.jpeg" alt="Game Development Studio">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/345183ef-c54a-4712-88b6-1181770c7651.jpeg" alt="Group Photo with Industry Professionals">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/6d7364b2-6514-4428-8965-a4fed63bcea3.jpeg" alt="Industry Panel Discussion">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/739db707-1e21-45bc-b290-b977577ad5f5.jpeg" alt="Networking Dinner">
+                </div>
             </div>
             
             <p>Video Highlights:</p>
-            <iframe width="100%" height="400" src="images/dca498b5-4322-4907-b301-bf9e9bcaf273.mp4" title="Industry Tour Highlights" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border: 3px solid #FFC107;"></iframe>
+            <iframe width="100%" height="450" src="images/dca498b5-4322-4907-b301-bf9e9bcaf273.mp4" title="Industry Tour Highlights" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </section>
         
         <section id="speakers">
-            <h2>📝 Expert Speaker Highlights</h2>
+            <h2><i class="fas fa-microphone-alt section-icon"></i>Expert Speaker Highlights</h2>
             
             <div class="speaker-profile">
                 <img src="images/saludar.jpg" alt="Speaker 1">
-                <div>
+                <div class="speaker-content">
                     <h3>Mr. Christian John Saludar</h3>
-                    <p><strong style="color: #0022FF;">Position:</strong> UIC alumnus and current PhD candidate at the Auckland Bioengineering Institute</p>
-                    <p><strong style="color: #FFC107;">Topic:</strong> "About Concussion and its Effects on the Brain"</p>
+                    <p><strong class="highlight">Position:</strong> UIC alumnus and current PhD candidate at the Auckland Bioengineering Institute</p>
+                    <p><strong class="accent">Topic:</strong> "About Concussion and its Effects on the Brain"</p>
                     <p><strong>Key Points:</strong></p>
                     <ul>
                         <li>Developing a new method to detect concussions in athletes</li>
                         <li>A system that can predict the severity of a concussion</li>
-                        <li>brain injury and its effects on the brain</li>
+                        <li>Brain injury and its effects on the brain</li>
                     </ul>
                 </div>
             </div>
-            
         </section>
         
         <section id="conclusion">
-            <h2>🎓 Conclusion & Acknowledgments</h2>
-            <p>The <span style="color: #0022FF; font-weight: bold;">ELEC014</span> <span style="color: #FFC107; font-weight: bold;">Industry Tour</span> has provided invaluable exposure to real-world applications of computing technologies. Students have gained insights into industry standards, emerging technologies, and professional work environments that will significantly enhance their academic journey and career preparation.</p>
+            <h2><i class="fas fa-flag-checkered section-icon"></i>Conclusion & Acknowledgments</h2>
+            <p>The <span class="highlight">ELEC014</span> <span class="accent">Industry Tour</span> has provided invaluable exposure to real-world applications of computing technologies. Students have gained insights into industry standards, emerging technologies, and professional work environments that will significantly enhance their academic journey and career preparation.</p>
             
             <h3>Impact on Learning</h3>
             <p>This tour has successfully bridged the gap between classroom learning and industry practice, giving students a clearer understanding of how theoretical concepts are applied in professional settings. The exposure to diverse technology specializations has helped many students clarify their career interests and specialization paths.</p>
@@ -371,14 +642,23 @@
             <p>We look forward to building on the connections made during this tour and continuing to strengthen the bridge between academia and industry in the field of computer studies.</p>
             
             <div style="text-align: center; margin-top: 2rem;">
-                <a href="#homepage" class="btn">Back to Top</a>
+                <a href="#homepage" class="btn"><i class="fas fa-arrow-up"></i> Back to Top</a>
             </div>
         </section>
     </div>
     
     <footer>
-        <p>&copy; 2023 <span style="color: #FFC107;">College of Computer Studies</span> - Industry Tour E-Journal</p>
-        <p>Created as part of the <span style="color: #FFC107;">ELEC014</span> course requirements</p>
+        <div class="footer-content">
+            <p>&copy; 2025 <span style="color: var(--accent);">College of Computer Studies</span> - Industry Tour E-Journal</p>
+            <p>Created as part of the <span style="color: var(--accent);">ELEC014</span> course requirements</p>
+            
+            <div class="social-links">
+                <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
     </footer>
 </body>
 </html>
